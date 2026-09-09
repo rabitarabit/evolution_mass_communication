@@ -364,3 +364,9 @@ h1 {
   background: rgba(10, 16, 23, 0.76);
   backdrop-filter: blur(8px);
 }
+
+
+.future-emphasis {
+  color: #ff5d5d;
+  font-weight: 700;
+}
