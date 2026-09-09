@@ -1,0 +1,221 @@
+.drift-wall {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  perspective: var(--dw-perspective, 1200px);
+  perspective-origin: 50% 50%;
+  --dw-tile-w: 200px;
+  --dw-tile-h: 132px;
+  --dw-gap: 18px;
+  --dw-radius: 14px;
+  --dw-lift: 64px;
+  --dw-dim: 0.55;
+  --dw-gray: 0;
+  --dw-overlay: #060010;
+  --dw-edge: 40%;
+  -webkit-mask-image:
+    radial-gradient(ellipse 78% 82% at 50% 46%, #000 var(--dw-edge), transparent 100%),
+    linear-gradient(to top, #000 var(--dw-edge), transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    radial-gradient(ellipse 78% 82% at 50% 46%, #000 var(--dw-edge), transparent 100%),
+    linear-gradient(to top, #000 var(--dw-edge), transparent 100%);
+  mask-composite: intersect;
+}
+
+.drift-wall__plane {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  flex-direction: row;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+.drift-wall__col {
+  position: relative;
+  width: calc(var(--dw-tile-w) + var(--dw-gap));
+  transform-style: preserve-3d;
+}
+
+.drift-wall__track {
+  display: flex;
+  flex-direction: column;
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+
+.drift-wall__tile {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: calc(var(--dw-tile-h) + var(--dw-gap));
+  flex: 0 0 auto;
+  outline: none;
+  transform-style: preserve-3d;
+}
+
+.drift-wall__inner {
+  position: absolute;
+  inset: calc(var(--dw-gap) / 2);
+  display: block;
+  border-radius: var(--dw-radius);
+  overflow: hidden;
+  background: #0b0b12;
+  opacity: var(--dw-dim);
+  transform: translateZ(0);
+  pointer-events: none;
+  transition:
+    transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.drift-wall__tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(var(--dw-gray)) saturate(0.92);
+  transition: filter 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.drift-wall__overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--dw-overlay);
+  opacity: 0.42;
+  pointer-events: none;
+  transition: opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.drift-wall__tile.is-active .drift-wall__inner,
+.drift-wall__tile:focus-visible .drift-wall__inner {
+  opacity: 1;
+  transform: translateZ(var(--dw-lift));
+  box-shadow: 0 24px 60px -18px rgba(0, 0, 0, 0.7);
+}
+
+.drift-wall__tile.is-active img,
+.drift-wall__tile:focus-visible img {
+  filter: grayscale(0) saturate(1.05);
+}
+
+.drift-wall__tile.is-active .drift-wall__overlay,
+.drift-wall__tile:focus-visible .drift-wall__overlay {
+  opacity: 0;
+}
+
+.drift-wall__tile:focus-visible .drift-wall__inner {
+  box-shadow:
+    0 24px 60px -18px rgba(0, 0, 0, 0.7),
+    0 0 0 2px rgba(255, 255, 255, 0.9);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drift-wall__plane,
+  .drift-wall__track {
+    will-change: auto;
+  }
+}
+
+
+/* Page-level cinematic presentation */
+.site-background .drift-wall {
+  background:
+    radial-gradient(circle at 18% 18%, rgba(184, 103, 39, 0.2), transparent 32%),
+    radial-gradient(circle at 80% 74%, rgba(20, 103, 132, 0.22), transparent 38%),
+    linear-gradient(135deg, #100b08 0%, #07131b 48%, #06111c 100%);
+  -webkit-mask-image: none;
+  mask-image: none;
+  isolation: isolate;
+}
+
+.site-background .drift-wall::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 58% 48% at 50% 42%, transparent 0%, rgba(3, 8, 13, 0.2) 64%, rgba(3, 8, 13, 0.58) 100%),
+    linear-gradient(90deg, rgba(3, 8, 13, 0.38), transparent 24%, transparent 76%, rgba(3, 8, 13, 0.38));
+}
+
+.site-background .drift-wall__plane {
+  width: 132vw;
+  min-width: 1080px;
+  height: 150vh;
+  min-height: 900px;
+}
+
+.site-background .drift-wall__col {
+  flex: 1 1 0;
+  width: auto;
+}
+
+.site-background .drift-wall__inner {
+  opacity: 0.62;
+  border: 1px solid rgba(202, 223, 228, 0.14);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.32);
+}
+
+.site-background .drift-wall__tile:nth-child(3n) .drift-wall__inner {
+  transform: translateZ(24px) rotate(1.4deg) scale(1.018);
+}
+
+.site-background .drift-wall__tile:nth-child(4n) .drift-wall__inner {
+  transform: translateZ(-18px) rotate(-1.1deg) scale(0.975);
+  opacity: 0.48;
+}
+
+.site-background .drift-wall__tile:nth-child(5n) .drift-wall__inner {
+  transform: translateZ(10px) rotate(-0.7deg);
+}
+
+.site-background .drift-wall__col:nth-child(-n + 3) img {
+  filter: sepia(0.28) saturate(1.08) contrast(1.08) brightness(0.8);
+}
+
+.site-background .drift-wall__col:nth-child(4) img,
+.site-background .drift-wall__col:nth-child(5) img {
+  filter: sepia(0.15) saturate(0.96) contrast(1.1) brightness(0.78);
+}
+
+.site-background .drift-wall__col:nth-child(n + 6) img {
+  filter: sepia(0.08) hue-rotate(138deg) saturate(1.16) contrast(1.08) brightness(0.78);
+}
+
+.site-background .drift-wall__overlay {
+  opacity: 0.34;
+  background: linear-gradient(135deg, rgba(166, 81, 24, 0.28), rgba(4, 28, 43, 0.48));
+}
+
+@media (max-width: 700px) {
+  .site-background .drift-wall__plane {
+    width: 180vw;
+    min-width: 760px;
+    height: 135vh;
+    min-height: 760px;
+  }
+
+  .site-background .drift-wall__inner {
+    opacity: 0.52;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-background .drift-wall__inner,
+  .site-background .drift-wall__tile img,
+  .site-background .drift-wall__overlay {
+    transition: none;
+  }
+}
+
+
