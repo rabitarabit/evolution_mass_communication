@@ -6,7 +6,7 @@ const eras = [
     media: "     ",
     title: "Primary Orality to Writing",
     description:
-      "From knowledge carried by human memory to information preserved in physical records.",
+      "The knowledge carried by human memory to information preserved in physical records.",
     answers: [
       {
         label: "A. Why did this change happen?",

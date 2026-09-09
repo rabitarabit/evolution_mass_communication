@@ -28,7 +28,7 @@ export default function App() {
         <Timeline />
         <Future />
         <footer>
-          The Evolution of Mass Communication · Summative Activity
+        
         </footer>
       </div>
     </div>

@@ -27,11 +27,11 @@ const ARCHIVE_IMAGE_IDS = [
   "photo-1550751827-4bd374c3f58b", "photo-1558494949-ef010cbdcc31", "photo-1517245386807-bb43f82c33c4", "photo-1517180102446-f3ece451e9d8",
   "photo-1484417894907-623942c8ee29", "photo-1497366754035-f200968a6e72", "photo-1504639725590-34d0984388bd", "photo-1451187580459-43490279c0fa",
   "photo-1535223289827-42f1e9919769", "photo-1516116216624-53e697fedbea", "photo-1526374965328-7f61d4dc18c5", "photo-1542744173-8e7e53415bb0",
-  "photo-1519389950473-47ba0277781c", "photo-1531482615713-2afd69097998", "photo-1556761175-b413da4baf72", "photo-1516321310764-8d1f2202b6b1",
-  "photo-1517292987719-0369a794ec0f", "photo-1535223289827-42f1e9919760", "photo-1531403009284-440f080d1e12", "photo-1532619187608-e5375cab36a9"
+  "photo-1519389950473-47ba0277781c", "photo-1531482615713-2afd69097998", "photo-1556761175-b413da4baf72",
+  "photo-1517292987719-0369a794ec0f", "photo-1531403009284-440f080d1e12"
 ];
 
-const DEFAULT_ITEMS = ARCHIVE_SUBJECTS.map(([title, subject], index) => ({
+const DEFAULT_ITEMS = ARCHIVE_SUBJECTS.slice(0, ARCHIVE_IMAGE_IDS.length).map(([title, subject], index) => ({
   image: "https://images.unsplash.com/" + ARCHIVE_IMAGE_IDS[index] + "?auto=format&fit=crop&w=960&q=80",
   title
 }));
